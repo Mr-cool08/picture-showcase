@@ -1,0 +1,40 @@
+{% extends 'base.html' %} {% block title %}Photos{% endblock %}
+{% block head %}
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{{ url_for('static', filename='style/home.css') }}"
+/>{% endblock %} {% block content %}
+<center>
+  <h1>Liam photos</h1>
+</center>
+<div class="photo-container">
+  {% for photos in photos %}
+  <img
+    class="photo"
+    src="{{ url_for('static', filename='photos/' + photos) }}"
+    alt="{{ image }}"
+    onclick="openLightbox('{{ url_for('static', filename='photos/' + photos) }}')", oncontextmenu="return false;"
+  />
+  {% endfor %}
+</div>
+
+<div class="lightbox-container" onclick="closeLightbox()">
+  <span class="close-button">&times;</span>
+
+  <img class="lightbox-image" id="lightbox-img" src="" alt="Full Image", oncontextmenu="return false;" />
+</div>
+
+<script>
+  function openLightbox(imageSrc) {
+    document.getElementById("lightbox-img").src = imageSrc;
+
+    document.querySelector(".lightbox-container").style.display = "flex";
+  }
+
+  function closeLightbox() {
+    document.querySelector(".lightbox-container").style.display = "none";
+  }
+
+</script>
+{% endblock %}

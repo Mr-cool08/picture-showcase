@@ -1,0 +1,54 @@
+body {
+    background-color: white;
+
+  }
+  /* CSS Reset */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    border-bottom: 1px solid black;
+    margin-bottom: 10px;
+  }
+  
+  li {
+    float: left;
+  }
+  
+  li a,
+  .dropbtn {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 26px 14px 16px; /* Increased padding on the right side for arrow space */
+    text-decoration: none;
+    position: relative; /* Ensure the arrow is positioned relative to the button */
+  }
+  li a:hover {
+    background-color: #599c64;
+  }s
+  
+  .dropbtn::after {
+    content: "\25BE"; /* Unicode code for down arrow ▾ */
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+  }
+  .obfuscation-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Allows clicks to go through the layer */
+  }
