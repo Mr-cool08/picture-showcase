@@ -11,10 +11,11 @@
 <div class="photo-container">
   {% for photos in photos %}
   <img
+    loading="lazy"
     class="photo"
     src="{{ url_for('static', filename='photos/' + photos) }}"
     alt="{{ image }}"
-    onclick="openLightbox('{{ url_for('static', filename='photos/' + photos) }}')", oncontextmenu="return false;"
+    onclick="openLightbox('{{ url_for('static', filename='photos/' + photos) }}')", oncontextmenu="return false;",
   />
   {% endfor %}
 </div>
@@ -36,5 +37,6 @@
     document.querySelector(".lightbox-container").style.display = "none";
   }
 
+  
 </script>
 {% endblock %}
