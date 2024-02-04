@@ -12,6 +12,12 @@ def create_lists_images():
 @app.route('/')
 def index():
     return render_template('index.html', photos=image_filenames)
+  
+  
+@app.route('/slideshow')
+def slideshow():
+    return render_template('slideshow.html', photos=image_filenames)
+  
 
 if __name__ == '__main__':
     image_filenames = create_lists_images()

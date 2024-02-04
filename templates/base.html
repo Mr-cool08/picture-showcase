@@ -12,11 +12,12 @@
     <h4>
       <ul>
         <li><a href="/">Home page</a></li>
-        <li><a href="/">Coming soon</a></li>
+        <li><a href="/slideshow">Slideshow</a></li>
         </li>
       </ul>
     </h4>
-    {% block content %}{% endblock %}
+    {% block content %}
+    {% endblock %}
     <script>
         document.addEventListener('dragstart', event => {
           const elementType = event.target.nodeName.toLowerCase();

@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+
+{% block title %}Slideshow{% endblock %}
+
+{% block content %}
+
+<style>
+     /* Add your CSS styles for the slideshow container and images here */
+    .slideshow-container {
+        max-width: 900px;
+        height: 500px; /* Set a fixed height for the slideshow container */
+        overflow: hidden; /* Hide overflow to prevent resizing */
+        position: relative;
+        margin: auto;
+    }
+
+    .mySlides {
+        position: relative;
+    }
+
+    .mySlides img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Maintain aspect ratio and cover the container */
+        border-radius: 10px; /* Add rounded corners to the image */
+    }
+
+    .prev, .next {
+        position: absolute;
+        top: 50%;
+        width: auto;
+        padding: 16px;
+        margin-top: -22px;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        transition: 0.6s ease;
+        border-radius: 0 3px 3px 0;
+        user-select: none;
+    }
+
+    .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+    }
+
+    .prev:hover, .next:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+    /* Style for the play/pause button */
+    
+
+    .playPauseButton {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .playPauseButton:hover {
+        background-color: #45a049;
+    }
+</style>
+  <center><h1>Slideshow</h1></center>
+  <div class="slideshow-container">
+    {% for photos in photos %}
+    <div class="mySlides">
+        <img src="{{ url_for('static', filename='photos/' + photos) }}" style="width:100%" alt="{{ image }}">
+        <button class="playPauseButton" onclick="toggleAutoPlay()">Pause</button>
+    </div>
+{% endfor %}
+
+    <!-- Add navigation buttons if needed -->
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+  </div>
+  <script>
+    var slideIndex = 1;
+    var slideInterval;
+    var playStates = {};
+
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+
+        if (n > slides.length) {
+            slideIndex = 1;
+        }
+
+        if (n < 1) {
+            slideIndex = slides.length;
+        }
+
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+
+        slides[slideIndex - 1].style.display = "block";
+
+        // Clear existing interval
+        clearInterval(slideInterval);
+
+        // Start new interval only if automatic play is enabled
+        var playPauseButton = slides[slideIndex - 1].getElementsByClassName("playPauseButton")[0];
+        if (playPauseButton && playStates[slideIndex] === "Pause") {
+            slideInterval = setInterval(function () {
+                plusSlides(1);
+            }, 5000);
+        }
+    }
+
+    function toggleAutoPlay() {
+        var playPauseButton = document.querySelector(".mySlides:nth-child(" + slideIndex + ") .playPauseButton");
+
+        if (slideInterval) {
+            clearInterval(slideInterval);
+            slideInterval = null;
+            playPauseButton.innerHTML = "Play";
+            playStates[slideIndex] = "Play";
+        } else {
+            slideInterval = setInterval(function () {
+                plusSlides(1);
+            }, 5000);
+            playPauseButton.innerHTML = "Pause";
+            playStates[slideIndex] = "Pause";
+        }
+    }
+
+    // Ensure the correct play/pause state is set initially
+    document.addEventListener("DOMContentLoaded", function () {
+        var playPauseButton = document.querySelector(".mySlides:nth-child(" + slideIndex + ") .playPauseButton");
+        playPauseButton.innerHTML = playStates[slideIndex] === "Pause" ? "Pause" : "Play";
+    });
+</script>
+
+
+
+
+{% endblock %}
